@@ -1,0 +1,26 @@
+.main{
+    width:80%;
+    margin:15px auto;
+    border:1px solid black;
+    padding:10px 20px;
+
+}
+table{
+    width:100%;
+}
+table tr:not(:first-child){
+    border:1px solid black;
+  
+}
+table tr:not(:first-child) td{
+    
+    border-right: 1px solid black;
+}
+td img{
+    width:39%;
+    height:99px;
+    object-fit:cover;
+}
+.objects{
+    font-weight: bold;
+}

@@ -1,0 +1,73 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}" />
+<div class="main shadow-lg">
+  <div class="my-2">
+    <a href='{% url 'home' %}'>
+    <button class="button my-2">Continue Shopping</button>
+    <hr class="border-t-4">
+    </a>
+  </div>
+  <ul class="flex justify-between">
+    <li>Items:{{items|length}}</li>
+    <li>Total:${{order.total_order}}</li>
+    <li>
+      <a href="{% url 'checkout' %}"><button
+          style="background:green;border-radius: 10px; padding:10px 10px">Checkout</button></a>
+    </li>
+  </ul>
+</div>
+<div class="main shadow-lg">
+  <table>
+    <tr>
+      <td></td>
+      <td>Items</td>
+      <td>Price</td>
+      <td>Quantity</td>
+      <td>Total</td>
+    </tr>
+    {% for item in items %}
+    <tr class="objects">
+      <td>
+        <img src="{{ item.product.image }}" />
+      </td>
+      <td>
+        <div class="flex justify-center">{{ item.product.name }}</div>
+      </td>
+      <td>
+        <div class="flex justify-center">${{ item.product.price|floatformat:2 }}</div>
+      </td>
+      <td>
+        <div class="flex justify-center items-center">
+          <div class="mr-2">{{ item.quantity }}</div>
+          <div>
+            <img style="width:15px;height:08px;margin:0;" data-id={{item.product.id}} data-action="add" class="update-item" src={% static "images/up.svg" %}>
+            <img style="width:15px;height:20px;margin:0;" data-id={{item.product.id}} data-action="remove" class="update-item" src={% static "images/down.svg" %}>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-center">${{ item.total|floatformat:2 }}</div>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+<script>
+  let element = document.querySelector('tr').querySelectorAll("td");
+  element.forEach(function (e) {
+    let content = e.innerHTML;
+    let clutter = `
+        <div class="flex justify-center">
+          ${content}
+        </div>      `
+    e.innerHTML=clutter;
+  })
+</script>
+{% endblock %}
+{% block js %}
+<script>
+forHover("cart");
+</script>
+{% endblock %}

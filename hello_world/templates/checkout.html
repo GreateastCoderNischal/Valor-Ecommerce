@@ -1,0 +1,146 @@
+{% extends 'cart.html' %}
+{% block content %}
+<style>
+  .border {
+    border: 1px solid black;
+  }
+
+  input {
+    border: 0.5px solid black;
+    border-radius: 10px;
+    padding: 5px 8px;
+  }
+
+  .box {
+    width: 100%;
+    margin-right: 30px;
+
+  }
+
+  .box ul li button {
+    width: 100%;
+    background: green;
+  }
+
+  .box ul li {
+    margin: 10px 0;
+  }
+
+  .box ul li:last-child {
+    margin: 17px 0;
+  }
+
+  .box table {
+    font-weight: 500;
+  }
+</style>
+<main class="w-80% mx-auto flex my-8">
+  <div class="box px-20">
+    <ul>
+      <li>
+        <input type="text" name="name" id="Name" placeholder="Enter your name" />
+        <input type="email" name="email" id="email" placeholder="enter your email" />
+      </li>
+      <li>Shipping Information</li>
+      <li>
+        <input type="text" name="name" id="Name" placeholder="Address..." />
+        <input type="text" name="name" id="Name" placeholder="City..." />
+      </li>
+
+      <li class="my-4">
+        <button id="continue">Continue</button>
+      </li>
+    </ul>
+  </div>
+  <div class="box mr-4">
+    <table class="w-full">
+      <tr>
+        <td>
+          <button class="button">Back to Cart</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <hr />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <h1>Order Summary</h1>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <hr />
+        </td>
+      </tr>
+      <tr class="border" id="objects">
+        <td>
+          <div class="flex align-center">
+
+            Image </div>
+        </td>
+        <td class="border" >
+          <div class='flex align-center justify-center '> Name </div>
+        </td>
+        <td class="border">
+          <div class='flex align-center justify-center'>Price </div>
+        </td>
+        <td class="border">
+          <div class='flex align-center justify-center'>
+            <span>Quantity</span>
+            {% load static %}
+
+          </div>
+        </td>
+      </tr>
+      {% for item in items %}
+      <tr class="border" id="objects">
+        <td>
+          <div class="flex align-center">
+            <img width="114" height='125' src="{{item.product.image}}" />
+          </div>
+        </td>
+        <td>
+          <div class='flex align-center justify-center'>{{item.product.name}}</div>
+        </td>
+        <td>
+          <div class='flex align-center justify-center'>${{item.product.price}}</div>
+        </td>
+        <td>
+          <div class='flex align-center justify-center'>
+            <span>{{item.quantity}}</span>
+            {% load static %}
+
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="3">
+          <hr />
+        </td>
+      </tr>
+      <tr>
+        <td>Items:{{items|length}}</td>
+      </tr>
+      <tr>
+        <td>Total:${{order.total_order}}</td>
+      </tr>
+    </table>
+  </div>
+</main>
+<script>
+  let main = document.querySelectorAll('#objects');
+  main.forEach(function (element) {
+    let product = element.querySelectorAll('td');
+    product.forEach(e => {
+      e.classList.add('border');
+    })
+
+  })
+</script>
+
+{% endblock %}
+{% block js %}
+{% endblock %}
